@@ -18,6 +18,7 @@ pip install django djangorestframework
 Inside of MY_VOTING_APP
 Migrate and Create Superuser
 Run both of these commands
+python manage.py makemigrations
 python manage.py migrate
 (This second command will ask you to create the superuser, just pick a name, email and password)
 python manage.py createsuperuser
