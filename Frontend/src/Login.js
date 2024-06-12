@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from './contexts/authcontext';
-
+import { Link } from 'react-router-dom'
+import myImage from './header_pic.webp';
 import { login } from './api'; // Ensure this path matches your project structure
 
 const LoginForm = () => {
@@ -46,7 +47,9 @@ const LoginForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+
+            <div className='header'><img src={myImage} alt="Header that says Online Voting System" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+            <form onSubmit={handleSubmit} className='login-container'>
                 <div>
                     <label htmlFor="username">Username:</label>
                     <input
@@ -65,7 +68,10 @@ const LoginForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                <div>
                 <button type="submit">Login</button>
+                <p>No Account? <Link to="/register">Click Here to Register</Link></p>
+                </div>
                 {error && <p>{error}</p>}
             </form>
         </div>
