@@ -26,17 +26,10 @@ const LoginForm = () => {
         }
         try {
 
-            //const response = await login(username, password);
-            //if (response.data && response.data.userID) {
-                //handleLogin(response.data.userID);
-            //}
-            //PLACEHOLDER FOR WHEN BACKEND LOGIN IS FUNCTIONAL
-            
-            const response = true;
-            if (response) {
-                console.Log("User exists, redirecting to start page")
-
-            } 
+            const response = await login(username, password);
+            if (response.data) {
+                console.log(response)
+            }
             else {
                 setError('Login failed. Please check your username and password.');
             }

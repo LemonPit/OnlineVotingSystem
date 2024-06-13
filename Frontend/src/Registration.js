@@ -1,91 +1,111 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from './contexts/authcontext';
-import { Link } from 'react-router-dom'
 import myImage from './header_pic.webp';
-import { login } from './api'; // Ensure this path matches your project structure
+import { Link } from 'react-router-dom';
+import { register } from './api';
 
-const RegistrationForm = () => {
-    
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+export default function RegistrationForm() {
+  // States for registration
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            if (username && password) {
-                console.log("Logging in....")
-            }
-            else {
-                setError('Username error. Please check your username.')
-            }
+  // States for checking the errors
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
+
+  // Handling the name change
+  const handleName = (e) => {
+    setName(e.target.value);
+    setSubmitted(false);
+  };
+
+  // Handling the email change
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    setSubmitted(false);
+  };
+
+  // Handling the password change
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+    setSubmitted(false);
+  };
+
+  // Handling the form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (name === '' || email === '' || password === '') {
+      setError(true);
+    } else {
+      try {
+        const response = await register(name, email, password);
+        if (response.status === 201) {
+          setSubmitted(true);
+          setError(false);
         }
-        catch (err) {
-            setError('An error occured during registration.')
+      } catch (error) {
+        setError(true);
+      }
+    }
+  };
 
-        }
-        try {
-
-            //const response = await login(username, password);
-            //if (response.data && response.data.userID) {
-                //handleLogin(response.data.userID);
-            //}
-            //PLACEHOLDER FOR WHEN BACKEND LOGIN IS FUNCTIONAL
-            
-            const response = true;
-            if (response) {
-                console.Log("User exists, redirecting to start page")
-
-            } 
-            else {
-                setError('Registration failed. Please check your username and password.');
-            }
-        } catch (err) {
-            setError('An error occurred during registration. Please try again later.');
-        }
-    };
-
+  // Showing success message
+  const successMessage = () => {
     return (
-        <div>
-
-            <div className='header'><img src={myImage} alt="Header that says Online Voting System" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-            <form onSubmit={handleSubmit} className='login-container'>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email">NJIT Email:</label>
-                    <input
-                        type="text"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <div>
-                <button type="submit">Register</button>
-                <p>Already have an Account? <Link to="/login">Back To Login</Link></p>
-                </div>
-                {error && <p>{error}</p>}
-            </form>
-        </div>
+      <div style={{ display: submitted ? '' : 'none', width: '100%' }}>
+        <h1 style={{width: '100%'}}>User {name} successfully registered!!</h1>
+      </div>
     );
-};
+  };
 
-export default RegistrationForm;
+  // Showing error message if error is true
+  const errorMessage = () => {
+    return (
+      <div style={{ display: error ? '' : 'none' }}>
+        <h1>Please enter all the fields</h1>
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ width: '100%', textAlign: 'center' }}>
+        {errorMessage()}
+        {successMessage()}
+      </div>
+      <div className='header'><img src={myImage} alt="Header that says Online Voting System" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+      <form onSubmit={handleSubmit} className='login-container'>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            onChange={handleName}
+            id="username"
+            value={name}
+            type="text"
+          />
+        </div>
+        <div>
+          <label className="label">Email</label>
+          <input
+            onChange={handleEmail}
+            id="email"
+            value={email}
+            type="text"
+          />
+        </div>
+        <div>
+          <label className="label">Password</label>
+          <input
+            onChange={handlePassword}
+            id="password"
+            value={password}
+            type="password"
+          />
+        </div>
+        <button className="btn" type="submit">Sign Up</button>
+        <p className="swap">Already signed up? <Link to="/login"> Click Here</Link></p>
+      </form>
+    </div>
+  );
+}

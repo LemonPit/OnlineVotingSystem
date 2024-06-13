@@ -15,6 +15,8 @@ While in the virtual environment install Django and DJango rest framework
 pip install django djangorestframework
 
 #Step 3
+Now Run
+cd my_voting_app
 Inside of MY_VOTING_APP
 Migrate and Create Superuser
 Run both of these commands
