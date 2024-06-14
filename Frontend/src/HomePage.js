@@ -11,7 +11,16 @@ const Home = () => {
  
     return (
         <div>
-
+            <nav></nav>
+            <div>
+                Sup
+            </div>
+            <div>
+                Was good
+            </div>
+            <div>
+                How you do
+            </div>
          
         </div>
     );
