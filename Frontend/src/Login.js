@@ -40,10 +40,11 @@ const LoginForm = () => {
 
     return (
         <div>
-
-            <div className='header'><img src={myImage} alt="Header that says Online Voting System" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-            <form onSubmit={handleSubmit} className='login-container'>
-                <div>
+            <div className='box-container'>
+            <div className='top-box'><img src={myImage} alt="Header that says Online Voting System"/></div>
+            <div className='bottom-box'>
+            <form onSubmit={handleSubmit}>
+                <div className='input-container'>
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
@@ -52,7 +53,7 @@ const LoginForm = () => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className='input-container'>
                     <label htmlFor="password">Password:</label>
                     <input
                         type="password"
@@ -67,6 +68,8 @@ const LoginForm = () => {
                 </div>
                 {error && <p>{error}</p>}
             </form>
+            </div>
+            </div>
         </div>
     );
 };

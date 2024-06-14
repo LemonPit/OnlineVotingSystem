@@ -74,9 +74,11 @@ export default function RegistrationForm() {
         {errorMessage()}
         {successMessage()}
       </div>
-      <div className='header'><img src={myImage} alt="Header that says Online Voting System" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-      <form onSubmit={handleSubmit} className='login-container'>
-        <div>
+      <div className='box-container'>
+      <div className='top-box'><img src={myImage} alt="Header that says Online Voting System" /></div>
+      <div className='bottom-box'>
+      <form onSubmit={handleSubmit}>
+        <div className='input-container'>
           <label htmlFor="username">Username:</label>
           <input
             onChange={handleName}
@@ -85,8 +87,8 @@ export default function RegistrationForm() {
             type="text"
           />
         </div>
-        <div>
-          <label className="label">Email</label>
+        <div className='input-container'>
+          <label className="label">Email:  </label>
           <input
             onChange={handleEmail}
             id="email"
@@ -94,8 +96,8 @@ export default function RegistrationForm() {
             type="text"
           />
         </div>
-        <div>
-          <label className="label">Password</label>
+        <div className='input-container'>
+          <label className="label">Password:</label>
           <input
             onChange={handlePassword}
             id="password"
@@ -106,6 +108,8 @@ export default function RegistrationForm() {
         <button className="btn" type="submit">Sign Up</button>
         <p className="swap">Already signed up? <Link to="/login"> Click Here</Link></p>
       </form>
+      </div>
+      </div>
     </div>
   );
 }
