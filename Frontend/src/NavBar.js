@@ -21,15 +21,15 @@ function NavigationBar({ displayChange }) {
         return () => clearInterval(interval); 
     }, []);
   return (
-    <div>
+    <div id="NavBar_Body">
     <div className="navbar">
       <ul className="navbar-list">
         <div><li><img src={myImage} alt="Header that says Online Voting System" id='header-img'/></li></div>
-        <Link to="/start"><li>Start</li></Link>
-        <Link to="/elections" target="_blank"><li><p className='text-options'>Elections</p></li></Link>
-        <Link to="/settings" target="_blank"><li><p className='text-options'>Settings</p></li></Link>
-        <Link to="/results" target="_blank"><li><p className='text-options'>Results</p></li></Link>
-        <Link to="/ballot" target="_blank"><li><p className='text-options'>Ballot</p></li></Link>        
+        <div onClick={() => displayChange('start')}><li><p className='text-options'>Start</p></li></div>
+        <div onClick={() => displayChange('elections')}><li><p className='text-options'>Elections</p></li></div>
+        <div onClick={() => displayChange('settings')}><li><p className='text-options'>Settings</p></li></div>
+        <div onClick={() => displayChange('results')}><li><p className='text-options'>Results</p></li></div>
+        <div onClick={() => displayChange('ballot')}><li><p className='text-options'>Ballot</p></li></div>        
       </ul>
     </div>
     <div className='nav-info'>

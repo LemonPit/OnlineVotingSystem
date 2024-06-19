@@ -1,0 +1,10 @@
+.election_li:hover {
+    background-color: rgb(180, 255, 255);
+}
+.election_li {
+    height: 10%; 
+    width: 100%; 
+    padding: 10px; 
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
