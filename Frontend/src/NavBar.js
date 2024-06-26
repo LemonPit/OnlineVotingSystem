@@ -28,8 +28,7 @@ function NavigationBar({ displayChange }) {
         <div onClick={() => displayChange('start')}><li><p className='text-options'>Start</p></li></div>
         <div onClick={() => displayChange('elections')}><li><p className='text-options'>Elections</p></li></div>
         <div onClick={() => displayChange('settings')}><li><p className='text-options'>Settings</p></li></div>
-        <div onClick={() => displayChange('results')}><li><p className='text-options'>Results</p></li></div>
-        <div onClick={() => displayChange('ballot')}><li><p className='text-options'>Ballot</p></li></div>        
+        <div onClick={() => displayChange('results')}><li><p className='text-options'>Results</p></li></div>    
       </ul>
     </div>
     <div className='nav-info'>

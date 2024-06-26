@@ -17,7 +17,7 @@ const ElectionDropdown = ({ handleSelectElection, displayChange}) => {
             {elections.map(election => (
               <li key={election.id}
               onClick={() => {
-                handleSelectElection(election.name);
+                handleSelectElection(election);
                 displayChange('election');
               }} className='election_li'>{election.name}
               </li>
