@@ -23,14 +23,13 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem('userID');
     localStorage.removeItem('mainFormID');
     setUserID(null);
-    
     setIsLoggedIn(false);
+    window.location.href = '/login';
   };
 
   useEffect(() => {
     // Check for token expiration if we decide to store tokens
     const storedUserID = localStorage.getItem('userID');
-    const storedMainFormID = localStorage.getItem('mainFormID');
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     if (storedUserID && storedIsLoggedIn) {
       setUserID(storedUserID);

@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './electioninfo.css'
+import { getElectionData } from './api'; 
 const ElectionDropdown = ({ handleSelectElection, displayChange}) => {
-  const [elections, setElections] = useState([
-    // Example elections data
-    { id: 1, name: 'Student Council Elections 2024' },
-    { id: 2, name: 'Science Club Elections 2024' }
-  ]);
+  const [elections, setElections] = useState([]);
   
+  useEffect(() => {
+    const fetchElections = async () => {
+      try {
+        const response = await getElectionData();
+        if (response.status === 200) {
+          const data = response.data
+          setElections(data);
+        }
 
+      }
+      catch {
+        console.log("Error fetching elections data");
+      }
+      
+    };
+
+    fetchElections();
+  }, []);
+  
   return (
     <div style={{ border: '1px solid black', height: '100%'}}>
       {elections.length > 0 ? (
@@ -19,7 +34,7 @@ const ElectionDropdown = ({ handleSelectElection, displayChange}) => {
               onClick={() => {
                 handleSelectElection(election);
                 displayChange('election');
-              }} className='election_li'>{election.name}
+              }} className='election_li'>{election.title}
               </li>
             ))}
           </ul>

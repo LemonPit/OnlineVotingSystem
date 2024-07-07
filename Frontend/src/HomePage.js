@@ -15,7 +15,7 @@ const Home = () => {
 
     const handleSelectElection = (election) => {
         setSelectedElection(election); 
-        console.log("YEAH I DID SELECT ONE and the name is "+election.name)
+        
     };
     const handleDisplayChange = (section) => {
         setDisplay(section); // Update state based on button clicked

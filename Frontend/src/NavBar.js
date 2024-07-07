@@ -2,8 +2,10 @@ import React, { useContext, useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import myImage from './header_pic.webp';
 import './navbar.css';
+import { AuthContext } from './contexts/authcontext';
 
 function NavigationBar({ displayChange }) {
+  const { handleLogout } = useContext(AuthContext);
     const [timezone, setTimezone] = useState('');
 
     useEffect(() => {
@@ -34,6 +36,9 @@ function NavigationBar({ displayChange }) {
     <div className='nav-info'>
         <div className='timezone'>
             <p>Timezone: <br></br>{timezone}</p>
+        </div>
+        <div>
+          <button onClick={handleLogout}>Sign Out</button>
         </div>
     </div>
     </div>

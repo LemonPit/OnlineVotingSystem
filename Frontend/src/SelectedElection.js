@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './electioninfo.css'
 import defaultImg from './default_img.png'
+import { getBallotsData, getCandidates, getChoices, createVote } from './api'; 
+import { AuthContext } from './contexts/authcontext';
 
-const fetchBallots = (electionId) => {
-  return Promise.resolve([
-    { id: 1, title: 'Presidential Candidates' },
-    { id: 2, title: 'Vice Presidential Candidates' },
-    { id: 3, title: 'Treasurer Candidates' }
-  ]);
-};
 
-const fetchChoices = (ballotId) => {
+
+
+const fetchChoices = async (ballotId) => {
+  try {
+    const response = await getChoices(ballotId);
+    console.log('Candidate Data', response);
+    return response.data;  
+  }
+  catch (err) {
+    console.error('Error fetching candidates:', err);
+  }
   return Promise.resolve([
     { id: 1, choice_text: 'John Doe', candidate: { name: 'John Doe' } },
     { id: 2, choice_text: 'Jane Smith', candidate: { name: 'Jane Smith' } },
@@ -27,6 +32,24 @@ const Election = ({ selectedElection }) => {
   const [choices, setChoices] = useState([]);
   const [selectedBallot, setSelectedBallot] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
+  const { userID } = useContext(AuthContext);
+
+
+  const  fetchBallots = async (electionId) => {
+    try {
+      const response = await getBallotsData(electionId);
+      console.log('Ballot Data', response);
+      return response.data;  
+    }
+    catch (err) {
+      console.error('Error fetching ballots:', err);
+    }
+      return Promise.resolve([
+      { id: 1, title: '...' },
+      { id: 2, title: '...' },
+      { id: 3, title: '...' }
+    ]);
+  };
 
   useEffect(() => {
     if (selectedElection) {
@@ -34,11 +57,23 @@ const Election = ({ selectedElection }) => {
     }
   }, [selectedElection]);
   const handleBallotClick = (ballot) => {
-    setSelectedBallot(ballot);
+    setChoices([]);
     fetchChoices(ballot.id).then(setChoices);
+    setSelectedBallot(ballot);
   };
-  const handleChoiceClick = (choice) => {
+  const handleChoiceClick = async (choice) => {
     setSelectedChoice(choice);
+    try {
+      const response = await createVote(userID, choice.id);
+      if (response.data) {
+        console.log('Vote created successfully!');
+      }
+
+
+    }
+    catch {
+      console.log("Error Creating Vote");
+    }
   }
 
   return (

@@ -14,14 +14,15 @@ class Election(models.Model):
     end_date = models.DateTimeField()
     status = models.CharField(max_length=50)  # e.g., 'upcoming', 'active', 'completed'
 
-class Candidate(models.Model):
-    election = models.ForeignKey(Election, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)
-
 class Ballot(models.Model):
     election = models.ForeignKey(Election, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
+
+class Candidate(models.Model):
+    election = models.ForeignKey(Election, related_name='candidates', on_delete=models.CASCADE)
+    ballot = models.ForeignKey(Ballot, related_name='candidates', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
 
 class Choice(models.Model):
     ballot = models.ForeignKey(Ballot, on_delete=models.CASCADE)
