@@ -6,6 +6,7 @@ import NavigationBar from './NavBar';
 import HomeInfo from './HomeInfo';
 import Election from './SelectedElection';
 import ElectionDropdown from './ElectionsInfo';
+import ResultsInfo from './results';
 const Home = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -30,6 +31,7 @@ const Home = () => {
                 {display === 'start' && <HomeInfo />}
                 {display === 'elections' && <ElectionDropdown handleSelectElection={handleSelectElection} displayChange={handleDisplayChange} />}
                 {display === 'election' && <Election selectedElection={selectedElection} />}
+                {display === 'results' && <ResultsInfo displayChange={handleDisplayChange} />}
                 {display !== 'start' && display !== 'elections' && display !== 'election' && (
                     <div>
                         <h2>No content for "{display}"</h2>
