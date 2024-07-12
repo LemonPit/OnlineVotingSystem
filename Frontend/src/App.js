@@ -19,18 +19,18 @@ function App() {
   return (
     <div >
     {<Background />}
-    <div className="AppContainer">
+    
     <Router>
         <Routes>
-          <Route path="/" element={<LoginForm/>} />
-          <Route path="/login" element={<LoginForm/>} /> 
-          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<div className="AppContainer"><LoginForm/></div>} /> 
+          <Route path="/register" element={<div className="AppContainer"><RegistrationForm /></div>} />
           <Route path="/home" element={isLoggedIn ? <Home/> : <Navigate to="/" />} />
           
         </Routes>
 
     </Router>
-    </div>
+    
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from './contexts/authcontext';
+import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import myImage from './header_pic.webp';
-import { login } from './api'; // Ensure this path matches your project structure
+import { login } from './api'; 
 
 const LoginForm = () => {
     const { handleLogin } = useContext(AuthContext);
@@ -18,8 +19,10 @@ const LoginForm = () => {
                 try {
 
                     const response = await login(username, password);
-                    if (response.data) {
+                    if (response.status===200) {
+                        handleLogin(response.data.user_id);
                         console.log(response)
+                        window.location.href = '/home';
                     }
                     else {
                         setError('Login failed. Please check your username and password.');

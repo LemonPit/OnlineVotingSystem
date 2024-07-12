@@ -11,8 +11,9 @@ Start the virtual environment
 venv\Scripts\activate
 
 #Step 2
-While in the virtual environment install Django and DJango rest framework and the cors headers
-pip install django djangorestframework django-cors-headers
+While in the virtual environment install Django and DJango rest framework and Django cors
+pip install django djangorestframework
+pip install django-cors-headers
 
 #Step 3
 Now Run

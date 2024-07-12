@@ -1,0 +1,50 @@
+.election_li:hover {
+    background-color: rgb(180, 255, 255);
+}
+.election_li {
+    height: 10%; 
+    width: 100%; 
+    padding: 10px; 
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+.ballot_ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .ballot_li {
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .ballot_li:hover {
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: aliceblue;
+  }
+
+  .choices_ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust minimum column width as needed */
+    gap: 20px; /* Adjust gap between items */
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .choices_li {
+    border: 1px solid gray;
+    padding: 20px; /* Adjust padding for better spacing */
+    border-radius: 10px; /* Rounded corners for better visual appearance */
+    cursor: pointer;
+  }
+  
+  .choices_li:hover {
+    background-color: aliceblue; /* Highlight on hover */
+  }
