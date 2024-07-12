@@ -14,6 +14,7 @@ venv\Scripts\activate
 While in the virtual environment install Django and DJango rest framework and Django cors
 pip install django djangorestframework
 pip install django-cors-headers
+
 #Step 3
 Now Run
 cd my_voting_app
