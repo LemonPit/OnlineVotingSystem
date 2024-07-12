@@ -47,3 +47,7 @@ export const getChoices = (ballotId) => {
 export const createVote = (userId, choiceId) => {
   return api.post(`vote/`, { user_id: userId, choice_id: choiceId});
 }
+
+export const getResults = () => {
+  return api.get(`results/`);
+}

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register, login_view, ElectionList, BallotList, CandidatesByBallotView, ChoicesByBallotView, VoteCreateView
+from .views import register, login_view, ElectionList, BallotList, CandidatesByBallotView, ChoicesByBallotView, VoteCreateView, AllResultsView
 
 urlpatterns = [
     path('register/', register, name='api-register'),
@@ -9,5 +9,5 @@ urlpatterns = [
     path('candidates/by-ballot/<int:ballot_id>/', CandidatesByBallotView.as_view(), name='candidates-by-ballot'),
     path('choices/by-ballot/<int:ballot_id>/', ChoicesByBallotView.as_view(), name='choices-by-ballot'),
     path('vote/', VoteCreateView.as_view(), name='create-vote'),
-
+    path('results/', AllResultsView.as_view(), name='all-results'),
 ]

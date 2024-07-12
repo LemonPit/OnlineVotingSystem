@@ -43,3 +43,23 @@ class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
         fields = ['id', 'voter', 'choice']
+
+class ChoiceResultSerializer(serializers.Serializer):
+    choice_id = serializers.IntegerField()
+    choice_text = serializers.CharField(max_length=200)
+    candidate_name = serializers.CharField(max_length=100)
+    vote_count = serializers.IntegerField()
+
+class BallotResultSerializer(serializers.Serializer):
+    ballot_id = serializers.IntegerField()
+    ballot_title = serializers.CharField(max_length=200)
+    choices = ChoiceResultSerializer(many=True)
+
+class ElectionResultSerializer(serializers.Serializer):
+    election_id = serializers.IntegerField()
+    election_title = serializers.CharField(max_length=200)
+    election_description = serializers.CharField(max_length=200, allow_blank=True, allow_null=True)
+    start_date = serializers.DateTimeField()
+    end_date = serializers.DateTimeField()
+    status = serializers.CharField(max_length=50)
+    ballots = BallotResultSerializer(many=True)

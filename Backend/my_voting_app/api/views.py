@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-from .serializers import ElectionSerializer, BallotSerializer, CandidateSerializer, ChoiceSerializer, VoteSerializer, UserSerializer
+from .serializers import ElectionSerializer, ElectionResultSerializer, BallotSerializer, CandidateSerializer, ChoiceSerializer, VoteSerializer, UserSerializer
 from .models import Election, Ballot, Candidate, Choice, Vote
 
 
@@ -74,3 +74,45 @@ class VoteCreateView(APIView):
         vote = Vote.objects.create(voter=user, choice=choice)
         serializer = VoteSerializer(vote)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class AllResultsView(APIView):
+    def get(self, request):
+        elections = Election.objects.all()
+        results = []
+
+        for election in elections:
+            election_data = {
+                'election_id': election.id,
+                'election_title': election.title,
+                'election_description': election.description,
+                'start_date': election.start_date,
+                'end_date': election.end_date,
+                'status': election.status,
+                'ballots': []
+            }
+            
+            ballots = Ballot.objects.filter(election=election)
+            for ballot in ballots:
+                ballot_data = {
+                    'ballot_id': ballot.id,
+                    'ballot_title': ballot.title,
+                    'choices': []
+                }
+                
+                choices = Choice.objects.filter(ballot=ballot)
+                for choice in choices:
+                    vote_count = Vote.objects.filter(choice=choice).count()
+                    choice_data = {
+                        'choice_id': choice.id,
+                        'choice_text': choice.choice_text,
+                        'candidate_name': choice.candidate.name,
+                        'vote_count': vote_count
+                    }
+                    ballot_data['choices'].append(choice_data)
+                
+                election_data['ballots'].append(ballot_data)
+            
+            results.append(election_data)
+        
+        serializer = ElectionResultSerializer(results, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
