@@ -24,8 +24,7 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem('mainFormID');
     setUserID(null);
     setIsLoggedIn(false);
-    //UNCOMMENT THIS LATER
-    //window.location.href = '/login';
+    
 
     console.log("Logging Out");
   };

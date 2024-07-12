@@ -30,6 +30,7 @@ const fetchChoices = async (ballotId) => {
 const Election = ({ selectedElection }) => {
   const [ballots, setBallots] = useState([]);
   const [choices, setChoices] = useState([]);
+  const [error, setError] = useState("");
   const [selectedBallot, setSelectedBallot] = useState(null);
   const [selectedChoice, setSelectedChoice] = useState(null);
   const { userID } = useContext(AuthContext);
@@ -68,11 +69,16 @@ const Election = ({ selectedElection }) => {
       if (response.data) {
         console.log('Vote created successfully!');
       }
-
-
     }
-    catch {
+    catch (error) {
       console.log("Error Creating Vote");
+      if (error.response) {
+        console.log("Error Creating Vote:", error.response.data.message);
+        setError(error.response.data.message)
+        console.log("Status code:", error.response.status);
+        console.log("Headers:", error.response.headers);
+
+      }
     }
   }
 
@@ -83,22 +89,25 @@ const Election = ({ selectedElection }) => {
           <h2>{selectedElection.name}</h2>
           {selectedBallot ? (
             <>
-              {selectedChoice ? (
-              <>
-                <h1>THANKS FOR VOTING!!!</h1>
-              </>
-              ): (
-              <>
-                <h3>{selectedBallot.title}</h3>
-                <ul className="choices_ul">
-                  {choices.map(choice => (
-                    <li key={choice.id} className='choices_li'><img src={defaultImg} onClick={() => handleChoiceClick(choice)} alt="candidate" id='header-img'/>{choice.choice_text}</li>
-                  ))}
-                </ul>
-                <button onClick={() => setSelectedBallot(null)}>Back to Ballots</button>
-              </>
+              {selectedChoice && !error ? (
+                <>
+                  <h1>THANKS FOR VOTING!!!</h1>
+                </>
+              ) : (
+                <>
+                  {error && <h3>{error}</h3>}
+                  <h3>{selectedBallot.title}</h3>
+                  <ul className="choices_ul">
+                    {choices.map(choice => (
+                      <li key={choice.id} className='choices_li'>
+                        <img src={defaultImg} onClick={() => handleChoiceClick(choice)} alt="candidate" id='header-img'/>
+                        {choice.choice_text}
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => setSelectedBallot(null)}>Back to Ballots</button>
+                </>
               )}
-              
             </>
           ) : (
             <>

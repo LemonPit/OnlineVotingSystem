@@ -22,6 +22,12 @@ function NavigationBar({ displayChange }) {
 
         return () => clearInterval(interval); 
     }, []);
+    const LogOutButton = () => {
+      window.location.href = '/login';
+      handleLogout();
+
+    }
+
   return (
     <div id="NavBar_Body">
     <div className="navbar">
@@ -38,7 +44,7 @@ function NavigationBar({ displayChange }) {
             <p>Timezone: <br></br>{timezone}</p>
         </div>
         <div>
-          <button onClick={handleLogout}>Sign Out</button>
+          <button onClick={LogOutButton}>Sign Out</button>
         </div>
     </div>
     </div>
