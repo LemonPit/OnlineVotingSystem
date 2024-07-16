@@ -33,9 +33,9 @@ def login_view(request):
 class ElectionList(APIView):
     def get(self, request, format=None):
         """
-        Return a list of all elections.
+        Return a list of all active elections.
         """
-        elections = Election.objects.all()
+        elections = Election.objects.filter(status='active')
         serializer = ElectionSerializer(elections, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -76,9 +76,10 @@ class VoteCreateView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
+
 class AllResultsView(APIView):
     def get(self, request):
-        elections = Election.objects.all()
+        elections = Election.objects.filter(status__in=['active', 'completed'])
         results = []
 
         for election in elections:

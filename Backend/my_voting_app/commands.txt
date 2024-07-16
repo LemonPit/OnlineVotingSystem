@@ -1,1 +1,6 @@
+python manage.py create_users
+python manage.py create_elections
+python manage.py create_ballots
+python manage.py create_candidates
 python manage.py create_choices
+python manage.py create_votes

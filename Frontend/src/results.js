@@ -41,7 +41,7 @@ const ResultsInfo = ({ resetResults }) => {
   
   return (
     <div style={{ border: '1px solid black', height: '100%' }}>
-    {!Results ? (
+    {Results ? (
       <>{ChosenResults ? (
         <>
          {BallotResults ? (

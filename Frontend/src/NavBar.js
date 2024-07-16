@@ -23,8 +23,8 @@ function NavigationBar({ displayChange }) {
         return () => clearInterval(interval); 
     }, []);
     const LogOutButton = () => {
-      window.location.href = '/login';
       handleLogout();
+      window.location.href = '/login';
 
     }
 
