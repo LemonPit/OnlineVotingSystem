@@ -1,4 +1,3 @@
 Backend/venv
 Backend/my_voting_app/.env
-Backend/my_voting_app/api/migrations/
 Backend/my_voting_app/db.sqlite3

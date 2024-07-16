@@ -41,7 +41,8 @@ const ResultsInfo = ({ resetResults }) => {
   
   return (
     <div style={{ border: '1px solid black', height: '100%' }}>
-      {ChosenResults ? (
+    {!Results ? (
+      <>{ChosenResults ? (
         <>
          {BallotResults ? (
           <>
@@ -77,6 +78,11 @@ const ResultsInfo = ({ resetResults }) => {
           </ul>
         </>
       )}
+      </>
+      ):(
+      <><h2>No results so far...</h2></>
+      )}
+      
     </div>
   );
 };

@@ -40,7 +40,7 @@ const ElectionDropdown = ({ handleSelectElection, displayChange}) => {
           </ul>
         </div>
       ) : (
-        <p>No Elections are currently ongoing.</p>
+        <h2>No Elections are currently ongoing.</h2>
       )}
     </div>
   );
