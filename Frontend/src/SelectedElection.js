@@ -79,6 +79,9 @@ const Election = ({ selectedElection }) => {
         console.log("Headers:", error.response.headers);
 
       }
+      else {
+        setError("Error creating vote, please try again later.")
+      }
     }
   }
 

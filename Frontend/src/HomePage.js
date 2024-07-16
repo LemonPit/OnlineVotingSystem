@@ -13,6 +13,7 @@ const Home = () => {
     const [display, setDisplay] = useState('start');
     const [error, setError] = useState('');
     const [selectedElection, setSelectedElection] = useState(null);
+    const [resetResults, setResetResults] = useState(false);
 
     const handleSelectElection = (election) => {
         setSelectedElection(election); 
@@ -20,6 +21,9 @@ const Home = () => {
     };
     const handleDisplayChange = (section) => {
         setDisplay(section); // Update state based on button clicked
+        if (section === 'results') {
+            setResetResults((prev) => !prev);
+        }
     };
  
     return (
@@ -31,8 +35,8 @@ const Home = () => {
                 {display === 'start' && <HomeInfo />}
                 {display === 'elections' && <ElectionDropdown handleSelectElection={handleSelectElection} displayChange={handleDisplayChange} />}
                 {display === 'election' && <Election selectedElection={selectedElection} />}
-                {display === 'results' && <ResultsInfo displayChange={handleDisplayChange} />}
-                {display !== 'start' && display !== 'elections' && display !== 'election' && (
+                {display === 'results' && <ResultsInfo resetResults={resetResults} />}
+                {display !== 'start' && display !== 'elections' && display !== 'election' && display !== 'results' && (
                     <div>
                         <h2>No content for "{display}"</h2>
                     </div>
