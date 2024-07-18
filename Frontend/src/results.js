@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './results.css'
 import { getResults } from './api'; 
 import ResultsChart from './ResultsChart';
-
+import FullResultsChart from './ResultsChart_2';
 
 const ResultsInfo = ({ resetResults }) => {
   const [Results, setResults] = useState([]);
@@ -47,8 +47,7 @@ const ResultsInfo = ({ resetResults }) => {
          {BallotResults ? (
           <>
             <div>
-              {BallotResults.ballot_title}
-            <ResultsChart ballot={BallotResults} />
+            <FullResultsChart ballot={BallotResults} />
             </div>
           </>
         ):(
